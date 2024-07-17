@@ -7,55 +7,17 @@ Planning:
      - (can I afford x at this time? how much money will I need on y date to afford my bills before I get paid? etc.).
  - Design visual layout.
 """
+
+from bill import Bill
+from balance import Balance
 from datetime import date
-
-class Balance:
-    def __init__(self, amount=0):
-        self.amount: float = amount
-        self.date = date.today()
-
-    def add(self, amount):
-        self.amount += amount
-
-    def subtract(self, amount):
-        self.amount -= amount
-
-    def view(self):
-        print("Current balance is:", self.amount)
-
-
-class Bill:
-    def __init__(self, name, amount, due_date, is_paid=False):
-        self.name: str = name
-        self.amount: float = amount
-        self.due_date: date = due_date
-        self.is_paid: bool = is_paid
-        self.is_late: bool = False
-
-    def check_due_date(self):
-        print(f"'{self.name}' is due on {self.due_date}")
-        if self.due_date < date.today():
-            self.is_late = True
-            print(f"'{self.name}' is late!")
-
-    def check_is_paid(self):
-        if self.is_paid:
-            print(f"Bill of {self.amount} has been paid")
-        else:
-            print(f"Bill of {self.amount} has not been paid")
-
-    def check_is_late(self):
-        if self.is_late:
-            days_past_due = date.today() - self.due_date  
-            print(f"'{self.name}' is {days_past_due.days} days past due!")
-        else:
-            days_until_due = self.due_date - date.today() 
-            print(f"You still have {days_until_due.days} days until '{self.name}' is due.")
 
 
 account = Balance(1000)
 bill = Bill("Example", 250, date(2024, 7, 30))
-bill.check_due_date()
-bill.check_is_paid()
-bill.check_is_late()
-
+bill2 = Bill("Example2", 300, date(2024, 7, 28))
+account.add_bill(bill)
+account.add_bill(bill2)
+account.view_bills()
+account.view_balance()
+account.check_past_due_bills()
