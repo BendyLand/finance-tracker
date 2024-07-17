@@ -21,4 +21,5 @@ account.add_bill(bill2)
 account.view_bills()
 account.view_balance()
 account.check_past_due_bills()
+account.save_bills_to_file()
 
