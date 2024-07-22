@@ -44,3 +44,6 @@ class Balance:
             line = json.dumps(temp)
             file.write(line)
 
+def new_date(string):
+    month, day, year = string.split("/")
+    return date(int(year), int(month), int(day))

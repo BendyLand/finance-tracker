@@ -9,17 +9,13 @@ Planning:
 """
 
 from bill import Bill
-from balance import Balance
+from balance import Balance, new_date
 from datetime import date
 
 
-account = Balance(1000)
-bill = Bill("Example", 250, date(2024, 7, 30))
-bill2 = Bill("Example2", 300, date(2024, 7, 28))
-account.add_bill(bill)
-account.add_bill(bill2)
-account.view_bills()
-account.view_balance()
-account.check_past_due_bills()
-account.save_bills_to_file()
+def init_account(amount=0):
+    account = Balance(amount)
+    return account
 
+
+account = init_account()
