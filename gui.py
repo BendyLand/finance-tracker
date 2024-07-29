@@ -1,47 +1,32 @@
 import tkinter as tk
 
-
-# # Function to update the balance
-def update_balance():
-    try:
-        amount = float(balance_entry.get())
-        current_balance = float(label.cget("text").split("$")[1])
-        new_balance = current_balance + amount
-        label.config(text=f"Balance: ${new_balance:.2f}")
-        balance_entry.delete(0, tk.END)
-    except ValueError:
-        balance_entry.delete(0, tk.END)
-        balance_entry.insert(0, "Invalid Input")
-
-
 # Create the main window
 root = tk.Tk()
 root.title("Finance Planner")
 root.geometry("1280x720")
 
-# Create two frames
-left_frame = tk.Frame(root)
-right_frame = tk.Frame(root, bg="lightgreen")
+nw_frame = tk.Frame(bg="lightgreen")
+sw_frame = tk.Frame(bg="lightblue")
+r_frame = tk.Frame(bg="pink")
 
-# Place the frames in a grid
-left_frame.grid(row=0, column=0, sticky="nsew")
-right_frame.grid(row=0, column=1, sticky="nsew")
+nw_frame.grid(row=0, column=0, sticky="nsew")
+sw_frame.grid(row=1, column=0, sticky="nsew")
+r_frame.grid(row=0, column=1, rowspan=2, sticky="nsew")
 
-# Configure the grid to make each frame take up half 
-root.grid_columnconfigure(0, weight=1)
-root.grid_columnconfigure(1, weight=2)  # The font of the front half shortens the back half
+root.grid_columnconfigure(0, weight=3)
+root.grid_columnconfigure(1, weight=2)
 root.grid_rowconfigure(0, weight=1)
+root.grid_rowconfigure(1, weight=1)
 
-# Add widgets to the left frame
-label = tk.Label(left_frame, text="Balance: $0", font=("Arial", 35))
-label.pack(pady=50)
+tk.Label(nw_frame, text="Balance: $0", font=("Arial", 50), bg="lightgreen").pack(
+    pady=10
+)
 
-# Create an entry to input the amount
-balance_entry = tk.Entry(left_frame)
-balance_entry.pack()
+tk.Label(sw_frame, text="Can I Afford?", font=("Arial", 50), bg="lightblue").pack(
+    pady=10
+)
 
-# Create a button to update the balance
-update_button = tk.Button(left_frame, text="Add to Balance", command=update_balance)
-update_button.pack(pady=5)
+tk.Label(r_frame, text="Bills:", font=("Arial", 50), bg="pink").pack(pady=25)
+
 
 root.mainloop()
