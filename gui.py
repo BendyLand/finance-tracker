@@ -4,14 +4,15 @@ import re
 
 def update_balance_text(entry, label):
     val = entry.get()
+    val = re.search("[0-9]+", val)
     current = label.cget("text")
     current = re.search("[0-9]+", current)
     total = "0"
-    if current is not None and len(val) > 0:
-        total = str(int(val) + int(current[0]))
+    if current is not None and val is not None:
+        total = str(int(val[0]) + int(current[0]))
         result = "Balance: $" + total
         label.config(text=result)
-        entry.delete(0, tk.END)
+    entry.delete(0, tk.END)
 
 
 # Create the main window
@@ -33,15 +34,15 @@ root.grid_rowconfigure(0, weight=1)
 root.grid_rowconfigure(1, weight=1)
 
 label = tk.Label(nw_frame, text="Balance: $0", font=("Arial", 50), bg="lightgreen")
-label.pack(pady=10)
+label.pack(pady=50)
 
 entry = tk.Entry(nw_frame)
-entry.pack(pady=3)
+entry.pack()
 
 button = tk.Button(
     nw_frame, text="Add", command=lambda: update_balance_text(entry, label)
 )
-button.pack(pady=1)
+button.pack(pady=25)
 
 tk.Label(sw_frame, text="Can I Afford?", font=("Arial", 50), bg="lightblue").pack(
     pady=10
