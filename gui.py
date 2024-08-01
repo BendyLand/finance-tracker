@@ -1,4 +1,18 @@
 import tkinter as tk
+import re
+
+
+def update_balance_text(entry, label):
+    val = entry.get()
+    current = label.cget("text")
+    current = re.search("[0-9]+", current)
+    total = "0"
+    if current is not None and len(val) > 0:
+        total = str(int(val) + int(current[0]))
+        result = "Balance: $" + total
+        label.config(text=result)
+        entry.delete(0, tk.END)
+
 
 # Create the main window
 root = tk.Tk()
@@ -18,9 +32,16 @@ root.grid_columnconfigure(1, weight=2)
 root.grid_rowconfigure(0, weight=1)
 root.grid_rowconfigure(1, weight=1)
 
-tk.Label(nw_frame, text="Balance: $0", font=("Arial", 50), bg="lightgreen").pack(
-    pady=10
+label = tk.Label(nw_frame, text="Balance: $0", font=("Arial", 50), bg="lightgreen")
+label.pack(pady=10)
+
+entry = tk.Entry(nw_frame)
+entry.pack(pady=3)
+
+button = tk.Button(
+    nw_frame, text="Add", command=lambda: update_balance_text(entry, label)
 )
+button.pack(pady=1)
 
 tk.Label(sw_frame, text="Can I Afford?", font=("Arial", 50), bg="lightblue").pack(
     pady=10
